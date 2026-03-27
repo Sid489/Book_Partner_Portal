@@ -11,5 +11,4 @@ public class BookPartnerPortalApplication {
 		SpringApplication.run(BookPartnerPortalApplication.class, args);
 		// "Branch check"
 	}
-
 }
