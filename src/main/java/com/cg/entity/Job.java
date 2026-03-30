@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+//@author Deependra
 @Entity
 @Table(name = "jobs")
 @Data
