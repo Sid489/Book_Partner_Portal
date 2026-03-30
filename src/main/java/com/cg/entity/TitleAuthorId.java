@@ -4,7 +4,8 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.util.Objects;
-
+/*
+ * @author Siddhant*/
 @Embeddable
 public class TitleAuthorId implements Serializable {
     private String auId;

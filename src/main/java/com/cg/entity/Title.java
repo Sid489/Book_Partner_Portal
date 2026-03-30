@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.*;
 import java.time.LocalDateTime;
-
+/*
+ * @author Siddhant*/
 @Entity
 @Table(name="titles")
 @Data
