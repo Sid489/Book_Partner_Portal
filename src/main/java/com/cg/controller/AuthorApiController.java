@@ -2,7 +2,7 @@ package com.cg.controller;
 
 
 import com.cg.service.IAuthorService;
-import com.cg.dto.AuthorBookPublisherDto;
+import com.cg.dto.AuthorBookPublisherDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ public class AuthorApiController {
     }
 
     @GetMapping("/books-with-publishers")
-    public ResponseEntity<List<AuthorBookPublisherDto>> getBooksWithPublishers() {
+    public ResponseEntity<List<AuthorBookPublisherDTO>> getBooksWithPublishers() {
         return ResponseEntity.ok(authorService.getAuthorsWithBooksAndPublishers());
     }
 }

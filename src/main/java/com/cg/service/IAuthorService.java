@@ -1,9 +1,9 @@
 package com.cg.service;
 
-import com.cg.dto.AuthorBookPublisherDto;
+import com.cg.dto.AuthorBookPublisherDTO;
 
 import java.util.List;
 
 public interface IAuthorService {
-    List<AuthorBookPublisherDto> getAuthorsWithBooksAndPublishers();
+    List<AuthorBookPublisherDTO> getAuthorsWithBooksAndPublishers();
 }
