@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/*
+ * @author Siddhant*/
 @Entity
 @Table(name="titleauthor")
 @Data
@@ -21,7 +22,7 @@ public class TitleAuthor {
     @ManyToOne
     @MapsId("auId")   // Maps composite key field
     @JoinColumn(name = "au_id")
-    private Authors author;
+    private Authors authors;
     @ManyToOne
     @MapsId("titleId")
     @JoinColumn(name = "title_id")

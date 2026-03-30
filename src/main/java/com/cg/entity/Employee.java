@@ -7,7 +7,8 @@ import java.util.concurrent.Flow;
 
 import com.cg.entity.Job;
 import com.cg.entity.Publishers;
-
+/*
+* @author Siddhant*/
 @Entity
 @Table(name = "employee")
 public class Employee {
