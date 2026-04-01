@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+//@author Deependra
 @Entity
 @Table(name = "authors")
 @Data
@@ -42,7 +43,7 @@ public class Authors {
     private String zip;
 
     @Column(name = "contract", nullable = false)
-    private String contract;
+    private Integer contract;
 
     @OneToMany(mappedBy = "authors",cascade = CascadeType.ALL)
     @ToString.Exclude
