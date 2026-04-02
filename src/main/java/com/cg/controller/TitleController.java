@@ -36,4 +36,12 @@ public class TitleController {
         List<AuthorTitlesUnderPriceDTO> result = titleService.getTitlesByMaxPrice(maxPrice);
         return ResponseEntity.ok(result);
     }
+
+
+    // API 9:
+    @GetMapping("/multi-author-titles")
+    public ResponseEntity<List<MultiAuthorTitlesDTO>> getMultiAuthorBooks() {
+        List<MultiAuthorTitlesDTO> result = titleService.getMultiAuthorTitles();
+        return ResponseEntity.ok(result);
+    }
 }
