@@ -33,7 +33,7 @@ public interface ITitleRepo extends JpaRepository<Title, String> {
   @Query("""
            SELECT new com.cg.dto.AuthorTitlesUnderPriceDTO(
                 t.titleId, t.title, t.type, t.price, t.royalty, t.ytdSales,
-                a.auId, CONCAT(a.FirstName, ' ', a.LastName),
+                a.auId, CONCAT(a.firstName, ' ', a.lastName),
                 ta.auOrd, ta.royaltyPer
            )
            FROM Title t

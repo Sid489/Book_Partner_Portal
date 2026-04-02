@@ -1,6 +1,13 @@
 package com.cg.dto;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BestSellingBookDTO {
 
     private String authorId;
@@ -10,38 +17,4 @@ public class BestSellingBookDTO {
     private Long totalSales;
     private Double revenue;
 
-    public BestSellingBookDTO(String authorId, String authorName,
-                              String titleId, String titleName,
-                              Long totalSales, Double revenue) {
-        this.authorId = authorId;
-        this.authorName = authorName;
-        this.titleId = titleId;
-        this.titleName = titleName;
-        this.totalSales = totalSales;
-        this.revenue = revenue;
-    }
-
-    public String getAuthorId() {
-        return authorId;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public String getTitleId() {
-        return titleId;
-    }
-
-    public String getTitleName() {
-        return titleName;
-    }
-
-    public Long getTotalSales() {
-        return totalSales;
-    }
-
-    public Double getRevenue() {
-        return revenue;
-    }
 }

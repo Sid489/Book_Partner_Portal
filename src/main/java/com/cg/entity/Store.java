@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Store {
+
     @Id
     @Column(name = "stor_id", length = 4)
     private String storeId;

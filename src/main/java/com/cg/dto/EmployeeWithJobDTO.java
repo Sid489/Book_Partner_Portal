@@ -6,14 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 /*
 * @author Siddhant
-* DTO for api number 4*/
+* DTO for api number 4
+*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class EmployeeWithJobDTO {
+
     private String empId;
     private String firstName;
     private String middleInitial;
