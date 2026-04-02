@@ -22,10 +22,10 @@ public class Authors {
     private String auId;
 
     @Column(name = "au_lname", length = 40,nullable = false)
-    private String LastName;
+    private String lastName;
 
     @Column(name = "au_fname", length = 20, nullable = false)
-    private String FirstName;
+    private String firstName;
 
     @Column(name = "phone", length = 12, nullable = false)
     private String phone;

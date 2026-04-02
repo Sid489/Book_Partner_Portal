@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.cg.entity.TitleAuthor;
 import com.cg.entity.TitleAuthorId;
+
 /*
- * @author Siddhant*/
+ * @author Siddhant
+*/
 @Repository
 public interface ITitleAuthor extends JpaRepository<TitleAuthor, TitleAuthorId> {
 

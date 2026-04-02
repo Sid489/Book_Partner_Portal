@@ -21,7 +21,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class AuthorServiceImpl implements IAuthorService {
+
     private final IAuthorRepo authorRepository;
+
     public AuthorServiceImpl(IAuthorRepo authorRepository) {
         this.authorRepository = authorRepository;
     }
@@ -40,7 +42,7 @@ public class AuthorServiceImpl implements IAuthorService {
                     if (ta.getTitle() != null) {
                         Title title = ta.getTitle();
                         String pubId = title.getPublisher() != null ? title.getPublisher().getPubId() : null;
-                        String pubName = title.getPublisher() != null ? title.getPublisher().getName() : null;
+                        String pubName = title.getPublisher() != null ? title.getPublisher().getPubName() : null;
                         books.add(new AuthorBookPublisherDTO.BookPublisherDetail(
                                 title.getTitleId(), title.getTitle(), pubId, pubName
                         ));

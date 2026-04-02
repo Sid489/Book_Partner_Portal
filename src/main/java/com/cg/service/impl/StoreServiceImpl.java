@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import com.cg.entity.Sale;
 import com.cg.repository.IStoreRepo;
 import com.cg.service.IStoreService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class StoreServiceImpl implements IStoreService {
 
-    @Autowired
     private IStoreRepo storeRepository;
+
+    public StoreServiceImpl(IStoreRepo storeRepository) {
+        this.storeRepository = storeRepository;
+    }
 
     @Override
     public List<com.cg.dto.StorePerformanceDTO> getStorePerformance() {

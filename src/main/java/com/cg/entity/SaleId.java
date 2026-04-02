@@ -32,6 +32,7 @@ public class SaleId implements Serializable {
                 Objects.equals(ordNum, that.ordNum) &&
                 Objects.equals(titleId, that.titleId);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(storeId, ordNum, titleId);

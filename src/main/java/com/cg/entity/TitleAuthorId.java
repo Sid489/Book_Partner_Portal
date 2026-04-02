@@ -1,38 +1,24 @@
 package com.cg.entity;
 
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 /*
  * @author Siddhant*/
 @Embeddable
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TitleAuthorId implements Serializable {
+
     private String auId;
     private String titleId;
 
-    public TitleAuthorId() {
-    }
-
-    public TitleAuthorId(String auId, String titleId) {
-        this.auId = auId;
-        this.titleId = titleId;
-    }
-    public String getAuId() {
-        return auId;
-    }
-
-    public void setAuId(String auId) {
-        this.auId = auId;
-    }
-
-    public String getTitleId() {
-        return titleId;
-    }
-
-    public void setTitleId(String titleId) {
-        this.titleId = titleId;
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
