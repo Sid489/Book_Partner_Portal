@@ -70,38 +70,21 @@ public class AuthorServiceImpl implements IAuthorService {
     //  API 5
     public List<BestSellingBookDTO> getBestSellingBooks() {
 
-//        if (true) {
-//            throw new InvalidDataException("Forced validation error");
-//        }
-        List<BestSellingBookDTO> list = authorRepository.findBestSellingBooks();
+        List<Object[]> rows = authorRepository.findBestSellingBooksRaw();
 
-
-        if (list == null || list.isEmpty()) {
-            throw new InvalidDataException("No best-selling books found");
-        }
-        Map<String, BestSellingBookDTO> map = new HashMap<>();
-
-        for (BestSellingBookDTO dto : list) {
-            //  VALIDATION
-            if (dto.getAuthorId() == null || dto.getTitleName() == null) {
-                throw new InvalidDataException("Invalid royalty range");
-
-
-            }
-
-            if (dto.getTotalSales() == null || dto.getTotalSales() < 0) {
-                throw new InvalidDataException("Invalid sales value");
-            }
-
-            if (dto.getRevenue() == null || dto.getRevenue() < 0) {
-                throw new InvalidDataException("Invalid revenue value");
-            }
-
-            map.putIfAbsent(dto.getAuthorId(), dto);
+        if (rows.isEmpty()) {
+            throw new InvalidDataException("No data found");
         }
 
 
-        return new ArrayList<>(map.values());
+        return rows.stream().map(row -> new BestSellingBookDTO(
+                (String) row[0],
+                (String) row[1],
+                (String) row[2],
+                (String) row[3],
+                ((Number) row[4]).longValue(),
+                ((Number) row[5]).doubleValue()
+        )).toList();
     }
 
     //  API 6
