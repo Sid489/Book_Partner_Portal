@@ -4,6 +4,7 @@ package com.cg.service.impl;
 import com.cg.dto.AuthorTitlesUnderPriceDTO;
 import com.cg.dto.MultiAuthorTitlesDTO;
 import com.cg.dto.TitleSalesByStoreDTO;
+import com.cg.dto.TitleSalesResponseDTO;
 import com.cg.exception.InvalidDataException;
 import com.cg.exception.ResourceNotFoundException;
 import com.cg.repository.ITitleRepo;
@@ -11,9 +12,7 @@ import com.cg.service.ITitleService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TitleServiceImpl implements ITitleService {
@@ -27,19 +26,44 @@ public class TitleServiceImpl implements ITitleService {
 
     // API 2:
     @Override
-    public List<TitleSalesByStoreDTO> getAllTitlesWithSalesByStore() {
-        List<TitleSalesByStoreDTO> result = titleRepository.findAllTitlesWithSalesByStore();
+    public List<TitleSalesResponseDTO> getAllTitlesWithSalesByStore() {
+        List<TitleSalesByStoreDTO> list = titleRepository.findAllTitlesWithSalesByStore();
 
-        if(result.isEmpty()){
+        if (list.isEmpty()) {
             throw new ResourceNotFoundException("No sales data found for any title.");
         }
-        return result;
+
+        Map<String, TitleSalesResponseDTO> map = new LinkedHashMap<>();
+
+        for (TitleSalesByStoreDTO row : list) {
+            String titleId = row.getTitleId();
+
+            if (!map.containsKey(titleId)) {
+                map.put(titleId, new TitleSalesResponseDTO(
+                        row.getTitleId(),
+                        row.getTitle(),
+                        row.getType(),
+                        row.getPrice(),
+                        new ArrayList<>()
+                ));
+            }
+            TitleSalesResponseDTO.StoreSaleInfo storeInfo =
+                    new TitleSalesResponseDTO.StoreSaleInfo(
+                            row.getStoreId(),
+                            row.getStoreName(),
+                            row.getStoreCity(),
+                            row.getQuantitySold()
+                    );
+
+            map.get(titleId).getSaleInfo().add(storeInfo);
+        }
+        return new ArrayList<>(map.values());
     }
 
 
     // API 3:
     @Override
-    public List<AuthorTitlesUnderPriceDTO> getTitlesByMaxPrice(Double maxPrice) {
+    public List<AuthorTitlesUnderPriceDTO> getTitlesUnderPrice(Double maxPrice) {
 
         if (maxPrice < 0) {
             throw new IllegalArgumentException("maxPrice cannot be negative.");

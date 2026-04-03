@@ -20,7 +20,7 @@ public interface ITitleRepo extends JpaRepository<Title, String> {
           SELECT new com.cg.dto.TitleSalesByStoreDTO(
                 t.titleId, t.title, t.type, t.price,
                 s.storeId, s.storeName, s.city,
-                sa.qty, sa.ordDate
+                sa.qty
           )
           FROM Title t
           JOIN t.sales sa

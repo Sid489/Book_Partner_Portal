@@ -2,7 +2,7 @@ package com.cg.controller;
 
 import com.cg.dto.AuthorTitlesUnderPriceDTO;
 import com.cg.dto.MultiAuthorTitlesDTO;
-import com.cg.dto.TitleSalesByStoreDTO;
+import com.cg.dto.TitleSalesResponseDTO;
 import com.cg.service.ITitleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,16 +25,16 @@ public class TitleController {
 
     // API 2:
     @GetMapping("/sales-by-store")
-    public ResponseEntity<List<TitleSalesByStoreDTO>> getTitlesWithSalesByStore() {
-        List<TitleSalesByStoreDTO> response = titleService.getAllTitlesWithSalesByStore();
+    public ResponseEntity<List<TitleSalesResponseDTO>> getTitlesWithSalesByStore() {
+        List<TitleSalesResponseDTO> response = titleService.getAllTitlesWithSalesByStore();
         return ResponseEntity.ok(response);
     }
 
 
     // API 3:
     @GetMapping("/filter")
-    public ResponseEntity<List<AuthorTitlesUnderPriceDTO>> getBooksByMaxPrice(@RequestParam(name = "maxPrice", required = true) Double maxPrice) {
-        List<AuthorTitlesUnderPriceDTO> result = titleService.getTitlesByMaxPrice(maxPrice);
+    public ResponseEntity<List<AuthorTitlesUnderPriceDTO>> getBooksUnderPrice(@RequestParam(name = "maxPrice", required = true) Double maxPrice) {
+        List<AuthorTitlesUnderPriceDTO> result = titleService.getTitlesUnderPrice(maxPrice);
         return ResponseEntity.ok(result);
     }
 
