@@ -69,21 +69,37 @@ class AuthorServiceTest {
     @Test
     void testBestSellingBooks_Positive() {
 
-        List<BestSellingBookDTO> mockData = List.of(
-                new BestSellingBookDTO("1", "John", "T1", "Book1", 100L, 500.0));
+        List<Object[]> mockData = Arrays.asList(
+                new Object[][]{
+                        {"1", "John", "T1", "Book1", 100L, 500.0}
+                }
+        );
 
-        verify(authorRepo, times(1)).findBestSellingBooks(); // verify mock called
+        when(authorRepo.findBestSellingBooksRaw()).thenReturn(mockData);
+
+        List<BestSellingBookDTO> result = authorService.getBestSellingBooks();
+
+        assertEquals(1, result.size());
+        assertEquals("John", result.get(0).getAuthorName());
+
+        verify(authorRepo, times(1)).findBestSellingBooksRaw();
     }
 
     // API 5 (NEGATIVE)
     @Test
     void testBestSellingBooks_Exception() {
 
-        when(authorRepo.findBestSellingBooks()).thenReturn(Collections.emptyList());
+        // Mock empty result from DB
+        when(authorRepo.findBestSellingBooksRaw())
+                .thenReturn(Collections.emptyList());
 
+        // Expect exception
         assertThrows(InvalidDataException.class, () -> {
-
+            authorService.getBestSellingBooks();
         });
+
+        // Verify repo method was called
+        verify(authorRepo, times(1)).findBestSellingBooksRaw();
     }
 
     // API 6 (POSITIVE)
@@ -91,14 +107,21 @@ class AuthorServiceTest {
     void testRoyaltyRange_Positive() {
 
         List<AuthorRoyaltyDTO> mockData = List.of(
-                new AuthorRoyaltyDTO("1", "John", "T1", "Book1", 10, 20));
+                new AuthorRoyaltyDTO("1", "John", "T1", "Book1", 10, 20)
+        );
 
-        when(authorRepo.findAuthorsWithRoyaltyRange()).thenReturn(Collections.emptyList());
+        // Return valid data
+        when(authorRepo.findAuthorsWithRoyaltyRange())
+                .thenReturn(mockData);
 
-        List<AuthorRoyaltyDTO> result = authorService.getAuthorsWithRoyaltyRange();
+        List<AuthorRoyaltyDTO> result =
+                authorService.getAuthorsWithRoyaltyRange();
 
+        // Assertions
         assertEquals(1, result.size());
+        assertEquals("John", result.get(0).getAuthorName());
 
+        verify(authorRepo, times(1)).findAuthorsWithRoyaltyRange();
     }
 
     // API 6 (NEGATIVE)

@@ -13,23 +13,22 @@ import java.util.List;
 public interface IAuthorRepo extends JpaRepository<Authors, String> {
 
     //queries
-    @Query("""
-SELECT new com.cg.dto.BestSellingBookDTO(
-    a.auId,
-    CONCAT(a.firstName, ' ', a.lastName),
-    t.titleId,
-    t.title,
-    SUM(s.qty),
-    SUM(s.qty * t.price)
-)
-FROM Authors a
-JOIN a.titleAuthors ta
-JOIN ta.title t
-JOIN t.sales s
-GROUP BY a.auId, a.firstName, a.lastName, t.titleId, t.title
-ORDER BY SUM(s.qty) DESC
-""")
-    List<BestSellingBookDTO> findBestSellingBooks();
+    @Query(value = """
+    SELECT 
+        a.au_id AS authorId,
+        CONCAT(a.au_fname, ' ', a.au_lname) AS authorName,
+        t.title_id AS titleId,
+        t.title AS titleName,
+        SUM(s.qty) AS totalSales,
+        SUM(s.qty * t.price) AS revenue
+    FROM authors a
+    JOIN titleauthor ta ON a.au_id = ta.au_id
+    JOIN titles t ON ta.title_id = t.title_id
+    JOIN sales s ON t.title_id = s.title_id
+    GROUP BY a.au_id, t.title_id
+    ORDER BY revenue DESC
+""", nativeQuery = true)
+    List<Object[]> findBestSellingBooksRaw();
 
 
     @Query("""
