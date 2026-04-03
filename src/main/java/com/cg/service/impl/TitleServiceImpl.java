@@ -4,6 +4,7 @@ package com.cg.service.impl;
 import com.cg.dto.AuthorTitlesUnderPriceDTO;
 import com.cg.dto.MultiAuthorTitlesDTO;
 import com.cg.dto.TitleSalesByStoreDTO;
+import com.cg.exception.InvalidDataException;
 import com.cg.exception.ResourceNotFoundException;
 import com.cg.repository.ITitleRepo;
 import com.cg.service.ITitleService;
@@ -57,15 +58,35 @@ public class TitleServiceImpl implements ITitleService {
     @Override
     public List<MultiAuthorTitlesDTO> getMultiAuthorTitles() {
         List<Object[]> results = titleRepository.findMultiAuthorTitles();
+
+        if (results == null) {
+            throw new IllegalArgumentException("Database returned null result");
+        }
+        if (results.isEmpty()) {
+            throw new ResourceNotFoundException("No multi-author titles found");
+        }
+
         List<MultiAuthorTitlesDTO> dtos = new ArrayList<>();
 
         for (Object[] row : results) {
+            if (row == null || row.length < 5) {
+                throw new InvalidDataException("Invalid data format received from database");
+            }
+
             String titleId = (String) row[0];
             String title = (String) row[1];
             String type = (String) row[2];
-            Long authorCount = ((Number) row[3]).longValue();
-            List<String> authorNames = Arrays.asList(((String) row[4]).split(", "));
 
+            if (row[3] == null) {
+                throw new InvalidDataException("Author count is missing");
+            }
+
+            Long authorCount = ((Number) row[3]).longValue();
+            if (row[4] == null) {
+                throw new InvalidDataException("Author names are missing");
+            }
+
+            List<String> authorNames = Arrays.asList(((String) row[4]).split(", "));
             dtos.add(new MultiAuthorTitlesDTO(titleId, title, type, authorCount, authorNames));
         }
 
